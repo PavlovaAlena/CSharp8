@@ -25,8 +25,6 @@ bool InputDannyh(string text, out int val1, out int val2)
 //************************
 void InputArray(int[,] arr, int minR, int maxR)
 {
-    Random rnd = new Random();
-
     for (int i = 0; i < arr.GetLength(0); i++)
     {
         for (int j = 0; j < arr.GetLength(1); j++)
