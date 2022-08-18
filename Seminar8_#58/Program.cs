@@ -46,7 +46,7 @@ void PrintArray(int[,] arr, string text)
 //************************
 int[,] ArrayСomposition(int[,] arr1, int[,] arr2)
 {
-    int[,] arrayNew = new int[arr1.GetLength(0), arr1.GetLength(1)];
+    int[,] arrayNew = new int[arr1.GetLength(0), arr2.GetLength(1)];
     for (int i = 0; i < arr1.GetLength(0); i++)
     {
         for (int j = 0; j < arr1.GetLength(1); j++)
@@ -58,16 +58,18 @@ int[,] ArrayСomposition(int[,] arr1, int[,] arr2)
 //************************
 int[,] ArrayСomposition2(int[,] arr1, int[,] arr2)
 {
-    int[,] arrayNew = new int[arr1.GetLength(0), arr1.GetLength(1)];
-    for (int i = 0; i < arr1.GetLength(0); i++)
+    int[,] arrayMat = new int[arr1.GetLength(0), arr2.GetLength(1)];
+    for (int i = 0; i < arrayMat.GetLength(0); i++)
     {
-        for (int j = 0; j < arr1.GetLength(1); j++)
+        for (int j = 0; j < arrayMat.GetLength(1); j++)
         {
-            for (int k = 0; k < arr2.GetLength(1); k++)
-            { arrayNew[i, j] = arrayNew[i, j] + arr1[i, j] * arr2[k, i]; }
+            int comp = 0;
+            for (int k = 0; k < arr1.GetLength(1); k++)
+            { comp = comp + arr1[i, k] * arr2[k, j]; }
+            arrayMat[i, j] = comp;
         }
     }
-    return arrayNew;
+    return arrayMat;
 }
 //***********************
 Console.Write("Программа задает две матрицы и находит произведение двух матриц.");
@@ -90,7 +92,21 @@ else
 
     int[,] arrayComp = ArrayСomposition(array, array2);
     PrintArray(arrayComp, "Произведение двух матриц: ");
-    //int[,] arrayComp2 = ArrayСomposition2(array, array2);
-    //PrintArray(arrayComp2, "Математическое произведение двух матриц: ");
+
+    int[,] array22 = new int[n, m];
+    if (m != n)
+    {
+        Console.WriteLine("Для математического произведение двух матриц необходимо, что бы кол-во строк одной матрицы = кол-ву столбцов другой.");
+        Console.WriteLine("Переворачиваем и перезаполняем вторую матрицу. Первую еще раз выведем для удобства");
+        InputArray(array22, minR, maxR);
+
+        PrintArray(array, "Первая матрица: ");
+        PrintArray(array22, "Вторая матрица: ");
+    }
+    else
+    { Array.Copy(array2, array22, array2.Length); }
+
+    int[,] arrayComp2 = ArrayСomposition2(array, array22);
+    PrintArray(arrayComp2, "Математическое произведение двух матриц: ");
 
 }
